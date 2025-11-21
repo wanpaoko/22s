@@ -131,6 +131,10 @@
         return seconds.toFixed(2);
     }
 
+    function formatTimeWithMask(seconds) {
+        return Math.floor(seconds) + '.***';
+    }
+
     function startGame() {
         timeLeft = totalTime;
         messageDisplay.textContent = '';
@@ -158,7 +162,7 @@
                 stopBtn.classList.add('hidden');
                 restartBtn.classList.remove('hidden');
             } else {
-                timerDisplay.textContent = formatTime(timeLeft);
+                timerDisplay.textContent = formatTimeWithMask(timeLeft);
             }
         }, 10); // Update every 10ms for smooth display
     }
@@ -179,9 +183,8 @@
     function resetGame() {
         clearInterval(timerInterval);
         timeLeft = totalTime;
-        // Display a random number as placeholder when not active
-        const randomInitialDisplay = (Math.random() * 99.99).toFixed(2);
-        timerDisplay.textContent = randomInitialDisplay;
+        // Display the target time (22.00) as initial display
+        timerDisplay.textContent = formatTime(totalTime);
         timerDisplay.style.color = 'var(--primary-color)';
         messageDisplay.textContent = '';
         messageDisplay.className = 'message';
